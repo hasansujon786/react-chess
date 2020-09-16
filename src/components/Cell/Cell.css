@@ -1,0 +1,21 @@
+.cell {
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  display: grid;
+  place-items: center;
+}
+.cell.w {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.3);
+}
+.cell.b {
+  background-color: #222;
+  color: rgba(255, 255, 255, 0.3);
+}
+.cell.white {
+  color: #bada55;
+}
+.cell.black {
+  color: tomato;
+}

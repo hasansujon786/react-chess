@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext} from 'react'
+import './App.css'
+import {ChessContext} from './context/ChessContext'
+import Chess from './components/Chess/Chess'
 
 function App() {
+  const [{history, currentPlayer}] = useContext(ChessContext)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Chess />
+      <ul>
+        <li>{currentPlayer}</li>
+        {history.map((his, i) => (
+          <li>{`${i % 2 === 0 ? 'p1' : 'p2'} : ${his.from} -  ${his.to}`}</li>
+        ))}
+      </ul>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,0 +1,45 @@
+.chess-wrapper {
+  --width: 250px;
+  width: var(--width);
+  height: var(--width);
+  display: grid;
+  grid-template-columns: auto 20px;
+  grid-template-rows: 20px auto;
+  justify-self: center;
+  grid-gap: 4px;
+  grid-template-areas:
+    'num       num  '
+    'chess  letter';
+}
+.chess-board {
+  border: solid 2px gray;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  display: none;
+  grid-area: chess;
+  /* border: solid 2px tomato; */
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+.nums {
+  grid-area: num;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr) 20px;
+  /* grid-gap: 10px; */
+  /* padding-left: 10px; */
+}
+.nums span {
+  /* border: solid 2px green; */
+  display: grid;
+  place-items: center;
+}
+.letters {
+  grid-area: letter;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.letters span {
+  /* border: solid 2px green; */
+  display: grid;
+  place-items: center;
+}
