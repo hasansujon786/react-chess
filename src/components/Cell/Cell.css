@@ -5,6 +5,10 @@
   display: grid;
   place-items: center;
 }
+.cell:focus {
+  outline: solid 4px gray;
+  z-index: 10;
+}
 .cell.w {
   background-color: #fff;
   color: rgba(0, 0, 0, 0.3);

@@ -79,6 +79,7 @@ function useChess() {
       {cellName: '8H', c: 'w', type: 'white', piece: 'rock'},
     ],
   }
+
   function chessReducder(state, action) {
     switch (action.type) {
       case 'valid-moves': {

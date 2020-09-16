@@ -1,5 +1,5 @@
 .chess-wrapper {
-  --width: 250px;
+  --width: 260px;
   width: var(--width);
   height: var(--width);
   display: grid;
@@ -16,7 +16,6 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   display: none;
   grid-area: chess;
-  /* border: solid 2px tomato; */
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
@@ -25,6 +24,7 @@
   grid-area: num;
   display: grid;
   grid-template-columns: repeat(8, 1fr) 20px;
+  color: gray;
   /* grid-gap: 10px; */
   /* padding-left: 10px; */
 }
@@ -34,6 +34,7 @@
   place-items: center;
 }
 .letters {
+  color: gray;
   grid-area: letter;
   display: grid;
   grid-template-columns: 1fr;

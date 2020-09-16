@@ -1,16 +1,13 @@
 .App {
   width: 100vw;
-  color: white;
+  color: snow;
   background-color: #282c34;
   min-height: 100vh;
   padding-top: 10px;
   display: grid;
-  grid-template-columns: auto 100px;
-  /* border: solid 2px red; */
+  grid-template-columns: auto 90px 120px;
+  grid-gap: 50px;
 }
-/* .App > * { */
-/*   border: solid 2px blue !important; */
-/* } */
 
 @keyframes App-logo-spin {
   from {
@@ -19,4 +16,28 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* .App > * { */
+/*   border: solid 2px blue !important; */
+/* } */
+.history {
+  list-style-type: circle;
+  margin-left: 1.2rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+.history-controll {
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 0.6rem;
+}
+
+.history-controll button {
+  padding: 0.3rem 0;
+  text-transform: capitalize;
+  color: var(--black);
+  font-weight: bold;
 }

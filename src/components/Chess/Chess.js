@@ -4,26 +4,28 @@ import {ChessContext} from '../../context/ChessContext'
 import Cell from '../Cell/Cell'
 
 function Chess() {
-  const [{cells}, dispatch] = useContext(ChessContext)
+  const [{cells, currentPlayer}, dispatch] = useContext(ChessContext)
   const preSelectdCellRef = useRef(null)
 
   function handlCelleClick(cell, e) {
-    const cells = document.querySelectorAll('.cell')
+    const cellElements = document.querySelectorAll('.cell')
+    const currentPlayerType = currentPlayer === 'p1' ? 'white' : 'black'
     let isAllowToMove = !!preSelectdCellRef.current
     if (isAllowToMove) {
       // if the currentPlayer click on the same type of piece again.
       isAllowToMove = preSelectdCellRef.current.type !== cell.type
     }
+    document.getElementById('current-cell').innerText = cell.cellName
 
     if (!isAllowToMove) {
-      cells.forEach((el) => (el.style.border = 'none'))
-      // e.target.classList.add('selected')
+      if (currentPlayerType !== cell.type) return
+
+      cellElements.forEach((el) => (el.style.border = 'none'))
       e.target.style.border = 'solid 2px tomato'
 
       preSelectdCellRef.current = cell
       // dispatch({type: 'valid-moves', payload: cell})
     } else {
-      // e.target.classList.add('selected-second')
       e.target.style.border = 'solid 2px red'
 
       dispatch({

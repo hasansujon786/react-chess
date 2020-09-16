@@ -1,3 +1,6 @@
+:root {
+  --black: #222;
+}
 *,
 *::after,
 *::before {
