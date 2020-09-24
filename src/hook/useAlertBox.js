@@ -11,13 +11,23 @@ const useLocal = () => {
   const logs = useRef([])
 
   const alertBox = (newlog) => {
-    const foundIdx = logs.current.findIndex(
-      (log) => JSON.stringify(log.value) === JSON.stringify(newlog)
-    )
-    if (foundIdx === -1) {
-      logs.current.push({value: newlog, count: 1})
+    // const foundIdx = logs.current.findIndex(
+    //   (log) => JSON.stringify(log.value) === JSON.stringify(newlog)
+    // )
+    // if (foundIdx === -1) {
+    //   logs.current.push({value: newlog, count: 1})
+    // } else {
+    //   logs.current[foundIdx].count++
+    // }
+
+    const matched = logs.current.length
+      ? JSON.stringify(logs.current[logs.current.length - 1].value) ===
+        JSON.stringify(newlog)
+      : null
+    if (matched) {
+      logs.current[logs.current.length - 1].count++
     } else {
-      logs.current[foundIdx].count++
+      logs.current.push({value: newlog, count: 1})
     }
   }
 
