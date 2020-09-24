@@ -7,8 +7,9 @@
 }
 .cell:focus {
   outline: solid 4px gray;
-  z-index: 10;
+  z-index: 1;
 }
+
 .cell.w {
   background-color: #fff;
   color: rgba(0, 0, 0, 0.3);
