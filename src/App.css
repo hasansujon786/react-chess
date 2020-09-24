@@ -3,10 +3,11 @@
   color: snow;
   background-color: #282c34;
   min-height: 100vh;
-  padding-top: 10px;
   display: grid;
   grid-template-columns: auto 90px 120px;
-  grid-gap: 50px;
+  grid-gap: 30px;
+  padding: 10px 20px;
+  justify-content: left;
 }
 
 @keyframes App-logo-spin {
@@ -22,14 +23,15 @@
 /*   border: solid 2px blue !important; */
 /* } */
 .history {
+  text-align: center;
   list-style-type: circle;
-  margin-left: 1.2rem;
+  margin-left: 1.4rem;
+  margin-top: 1rem;
   font-size: 0.9rem;
   text-transform: uppercase;
   line-height: 1.6;
 }
 .history-controll {
-  margin: 1rem 0;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 0.6rem;
@@ -40,4 +42,5 @@
   text-transform: capitalize;
   color: var(--black);
   font-weight: bold;
+  font-size: 1.2rem;
 }
