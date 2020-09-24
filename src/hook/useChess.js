@@ -1,6 +1,10 @@
 import {useReducer} from 'react'
+import useAlertBox from './useAlertBox'
 
 function useChess() {
+  const alertBox = useAlertBox()
+
+  alertBox('testing')
   const defaultReducerValue = {
     name: 'hasansujon',
     currentPlayer: 'p1',
@@ -106,9 +110,49 @@ function useChess() {
 
         return {
           ...state,
-          cells: [...cells],
+          cells,
           currentPlayer: state.currentPlayer === 'p1' ? 'p2' : 'p1',
-          history: [...state.history, {from: from.cellName, to: to.cellName}],
+          history: [...state.history, {from: from, to: to}],
+        }
+      }
+
+      case 'undo': {
+        if (state.history.length === 0) return state
+
+        const cells = [...state.cells]
+        const history = [...state.history]
+        const lastCell = history[history.length - 1]
+
+        const lastToIdx = cells.findIndex((cell) => cell.cellName === lastCell.to.cellName)
+        const lastFromIdx = cells.findIndex((cell) => cell.cellName === lastCell.from.cellName)
+
+        // cells[lastToIdx] = {
+        //   ...cells[lastToIdx],
+        //   type: lastCell.from.type,
+        //   piece: lastCell.from.piece,
+        // }
+        // cells[lastFromIdx] = {
+        //   ...cells[lastFromIdx],
+        //   type: lastCell.to.type,
+        //   piece: lastCell.to.piece,
+        // }
+        alert('kuddujs')
+        cells[lastToIdx] = {...lastCell.from}
+        cells[lastFromIdx] = {...lastCell.to}
+        history.pop()
+        // to 6F.
+        // from 5H.
+
+        const cellElements = document.querySelectorAll('.cell')
+        cellElements.forEach((el) => (el.style.border = 'none'))
+        document.getElementsByClassName(lastCell.from.cellName)[0].style.border = 'solid 2px red'
+        document.getElementsByClassName(lastCell.to.cellName)[0].style.border = 'solid 2px red'
+
+        return {
+          ...state,
+          cells,
+          history,
+          currentPlayer: state.currentPlayer === 'p1' ? 'p2' : 'p1',
         }
       }
 

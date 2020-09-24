@@ -23,9 +23,7 @@ function App() {
         <section>
           <ul className="history">
             {history.map((his, i) => (
-              <li>{`${i % 2 === 0 ? 'p1' : 'p2'} - ${his.from} >  ${
-                his.to
-              }`}</li>
+              <li>{`${i % 2 === 0 ? 'p1' : 'p2'} - ${his.from.cellName} >  ${his.to.cellName}`}</li>
             ))}
           </ul>
         </section>
