@@ -1,16 +1,20 @@
-import React, {useRef, useContext} from 'react'
+import React, { useRef, useContext, useEffect } from 'react'
 import './Chess.css'
-import {ChessContext} from '../../context/ChessContext'
+import { ChessContext } from '../../context/ChessContext'
 import Cell from '../Cell/Cell'
 
 function Chess() {
-  const [{cells, currentPlayer}, dispatch] = useContext(ChessContext)
+  const [{ cells, currentPlayer }, dispatch] = useContext(ChessContext)
   const preSelectdCellRef = useRef(null)
+  useEffect(() => {
+    preSelectdCellRef.current = null
+  }, [currentPlayer])
 
   function handlCelleClick(cell, e) {
     const cellElements = document.querySelectorAll('.cell')
     const currentPlayerType = currentPlayer === 'p1' ? 'white' : 'black'
     let isAllowToMove = !!preSelectdCellRef.current
+
     if (isAllowToMove) {
       // if the currentPlayer click on the same type of piece again.
       isAllowToMove = preSelectdCellRef.current.type !== cell.type
@@ -33,7 +37,6 @@ function Chess() {
         from: preSelectdCellRef.current,
         to: cell,
       })
-      preSelectdCellRef.current = null
     }
   }
 
@@ -61,11 +64,7 @@ function Chess() {
       </div>
       <div className="chess-board">
         {cells.map((cell) => (
-          <Cell
-            onClick={(e) => handlCelleClick(cell, e)}
-            cell={cell}
-            key={cell.cellName}
-          />
+          <Cell onClick={(e) => handlCelleClick(cell, e)} cell={cell} key={cell.cellName} />
         ))}
       </div>
     </div>
