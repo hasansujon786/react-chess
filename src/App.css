@@ -44,3 +44,7 @@
   font-weight: bold;
   font-size: 1.2rem;
 }
+.history-controll button:disabled {
+  color: gray;
+  opacity: .3;
+}

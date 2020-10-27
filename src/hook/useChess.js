@@ -1,13 +1,15 @@
 import { useReducer } from 'react'
-// import useAlertBox from './useAlertBox'
+import useAlertBox from './useAlertBox'
 
 function useChess() {
-  // const alertBox = useAlertBox()
+  // eslint-disable-next-line
+  const alertBox = useAlertBox()
 
   const defaultReducerValue = {
     name: 'hasansujon',
     currentPlayer: 'p1',
     history: [],
+    redoList: [],
     cells: [
       { cellName: '1A', c: 'w', type: 'black', piece: 'rock' },
       { cellName: '2A', c: 'b', type: 'black', piece: 'knight' },
@@ -110,8 +112,9 @@ function useChess() {
         return {
           ...state,
           cells,
-          currentPlayer: state.currentPlayer === 'p1' ? 'p2' : 'p1',
+          redoList: [],
           history: [{ from, to }, ...state.history],
+          currentPlayer: state.currentPlayer === 'p1' ? 'p2' : 'p1',
         }
       }
 
@@ -120,39 +123,77 @@ function useChess() {
 
         const cells = [...state.cells]
         const history = [...state.history]
-        const lastCell = history[0]
+        const lastHistoryCell = history[0]
 
-        const lastToIdx = cells.findIndex((cell) => cell.cellName === lastCell.to.cellName)
-        const lastfrIdx = cells.findIndex((cell) => cell.cellName === lastCell.from.cellName)
+        // is cell.cellName === lastHistoryCell.from.cellName
+        const lastfrIdx = cells.findIndex((cell) => cell.cellName === lastHistoryCell.from.cellName)
+        // is cell.cellName === lastHistoryCell.to.cellName
+        const lastToIdx = cells.findIndex((cell) => cell.cellName === lastHistoryCell.to.cellName)
 
-        cells[lastToIdx] = {
-          ...cells[lastToIdx],
-          type: lastCell.to.type,
-          piece: lastCell.to.piece,
-        }
         cells[lastfrIdx] = {
           ...cells[lastfrIdx],
-          type: lastCell.from.type,
-          piece: lastCell.from.piece,
+          type: lastHistoryCell.from.type,
+          piece: lastHistoryCell.from.piece,
+        }
+        cells[lastToIdx] = {
+          ...cells[lastToIdx],
+          type: lastHistoryCell.to.type,
+          piece: lastHistoryCell.to.piece,
         }
         history.shift()
 
         const cellElements = document.querySelectorAll('.cell')
         cellElements.forEach((el) => (el.style.border = 'none'))
-        document.getElementsByClassName(lastCell.from.cellName)[0].style.border = 'solid 2px red'
-        document.getElementsByClassName(lastCell.to.cellName)[0].style.border = 'solid 2px green'
+        document.getElementsByClassName(lastHistoryCell.from.cellName)[0].style.border = 'solid 2px red'
+        document.getElementsByClassName(lastHistoryCell.to.cellName)[0].style.border = 'solid 2px green'
 
         return {
           ...state,
           cells,
           history,
-          redoList: [lastCell, ...redoList],
+          redoList: [lastHistoryCell, ...state.redoList],
           currentPlayer: state.currentPlayer === 'p1' ? 'p2' : 'p1',
         }
       }
 
       case 'redo': {
-        return { ...state }
+        if (state.redoList.length === 0) return state
+
+        const cells = [...state.cells]
+        const redoList = [...state.redoList]
+        const lastRedoCell = redoList[0]
+
+        // is cell.cellName === lastHistoryCell.from.cellName
+        const lastfrIdx = cells.findIndex((cell) => cell.cellName === lastRedoCell.from.cellName)
+        // is cell.cellName === lastHistoryCell.to.cellName
+        const lastToIdx = cells.findIndex((cell) => cell.cellName === lastRedoCell.to.cellName)
+
+        // Make cells[lastfrIdx] empty.
+        // Because redo is exactly like move-to, where from index remains empty.
+        cells[lastfrIdx] = {
+          ...cells[lastfrIdx],
+          type: '',
+          piece: '',
+        }
+        cells[lastToIdx] = {
+          ...cells[lastToIdx],
+          type: lastRedoCell.from.type,
+          piece: lastRedoCell.from.piece,
+        }
+        redoList.shift()
+
+        const cellElements = document.querySelectorAll('.cell')
+        cellElements.forEach((el) => (el.style.border = 'none'))
+        document.getElementsByClassName(lastRedoCell.from.cellName)[0].style.border = 'solid 2px green'
+        document.getElementsByClassName(lastRedoCell.to.cellName)[0].style.border = 'solid 2px red'
+
+        return {
+          ...state,
+          cells,
+          redoList,
+          history: [lastRedoCell, ...state.history],
+          currentPlayer: state.currentPlayer === 'p1' ? 'p2' : 'p1',
+        }
       }
 
       default:

@@ -10,7 +10,7 @@ function Chess() {
     preSelectdCellRef.current = null
   }, [currentPlayer])
 
-  function handlCelleClick(cell, e) {
+  function handlCellClick(cell, e) {
     const cellElements = document.querySelectorAll('.cell')
     const currentPlayerType = currentPlayer === 'p1' ? 'white' : 'black'
     let isAllowToMove = !!preSelectdCellRef.current
@@ -64,7 +64,7 @@ function Chess() {
       </div>
       <div className="chess-board">
         {cells.map((cell) => (
-          <Cell onClick={(e) => handlCelleClick(cell, e)} cell={cell} key={cell.cellName} />
+          <Cell onClick={(e) => handlCellClick(cell, e)} cell={cell} key={cell.cellName} />
         ))}
       </div>
     </div>

@@ -1,8 +1,8 @@
 ### Todos
 
-- [ ] History
-  - [ ] Undo
-  - [ ] Redo
+- [x] History
+  - [x] Undo
+  - [x] Redo
 - [ ] Validate moves
 - [ ] Improved UI
 - [ ] Responsive

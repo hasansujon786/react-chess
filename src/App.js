@@ -5,7 +5,7 @@ import Chess from './components/Chess/Chess'
 import { AlertBox } from './hook/useAlertBox'
 
 function App() {
-  const [{ history, currentPlayer }, dispatch] = useContext(ChessContext)
+  const [{ history, redoList, currentPlayer }, dispatch] = useContext(ChessContext)
   return (
     <>
       <AlertBox />
@@ -18,10 +18,17 @@ function App() {
         </section>
         <section>
           <div className="history-controll">
-            <button onClick={() => dispatch({ type: 'redo' })}>redo</button>
-            <button onClick={() => dispatch({ type: 'undo' })}>undo</button>
+            <button {...{disabled: !redoList.length}}  onClick={() => dispatch({ type: 'redo' })}>redo</button>
+            <button {...{disabled: !history.length}} onClick={() => dispatch({ type: 'undo' })}>undo</button>
           </div>
           <ul className="history">
+            {/* <p>redo</p> */}
+            {/* {redoList.map((his, i) => ( */}
+            {/*   <li>{`${i % 2 === 0 ? 'p1' : 'p2'} - ${his.from.cellName} >  ${his.to.cellName}`}</li> */}
+            {/* ))} */}
+            {/* <hr /> */}
+
+            <p>history</p>
             {history.map((his, i) => (
               <li>{`${i % 2 === 0 ? 'p1' : 'p2'} - ${his.from.cellName} >  ${his.to.cellName}`}</li>
             ))}
